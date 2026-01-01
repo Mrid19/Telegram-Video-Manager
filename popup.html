@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html, body {
+      height: 450px;
+      width: 550px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    /* HEADER (Now contains Title + Clear Button) */
+    .header {
+      background: white;
+      padding: 12px 15px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      z-index: 20;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header h3 { margin: 0; color: #333; font-size: 16px; font-weight: 700; }
+    .badge {
+      background: #e3f2fd; color: #0088cc; padding: 2px 8px;
+      border-radius: 4px; font-size: 10px; font-weight: bold; border: 1px solid #bbdefb;
+    }
+
+    /* CLEAR BUTTON (Moved to Header) */
+    .btn-clear {
+      background: white; border: 1px solid #ffcdd2; color: #d32f2f;
+      padding: 5px 10px; border-radius: 4px; cursor: pointer; 
+      font-size: 11px; font-weight: 600; transition: all 0.2s;
+    }
+    .btn-clear:hover { background: #ffebee; border-color: #ef9a9a; }
+
+    /* TABLE AREA */
+    .table-container { 
+      padding: 0; 
+      flex-grow: 1; /* Fills all available space */
+      overflow-y: auto; 
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 12px;
+      table-layout: fixed; /* Keeps columns stable */
+    }
+    
+    th {
+      text-align: left; padding: 10px; color: #777; font-weight: 600;
+      border-bottom: 1px solid #eee; background: #fafafa;
+      position: sticky; top: 0; z-index: 10;
+    }
+    
+    td { padding: 10px; border-bottom: 1px solid #f5f5f5; color: #444; vertical-align: middle; }
+
+    /* COLUMN WIDTHS (Fixed alignment issue) */
+    .col-idx { width: 35px; text-align: center; color: #999; }
+    .col-time { width: 70px; text-align: center; font-family: monospace; } 
+    .col-size { width: 70px; text-align: center; color: #666; }
+    .col-act { width: 60px; text-align: center; }
+    /* Name column takes remaining space automatically */
+    .col-name { width: auto; } 
+
+    .filename {
+      font-weight: 600; color: #333; display: block;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* DOWNLOAD BUTTON */
+    .btn-download {
+      width: 28px; height: 28px; border-radius: 50%;
+      background-color: #0088cc; border: none; color: white;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .btn-download:hover { background-color: #0077aa; }
+    .btn-download:disabled { background-color: #ccc; cursor: default; }
+
+    /* FOOTER */
+    .legal-footer {
+      background-color: white;
+      padding: 10px 15px;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-info {
+      display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #888;
+    }
+    .btn-donate {
+      width: 100%; background: #ffeb3b; color: #333; border: 1px solid #fbc02d;
+      padding: 8px; border-radius: 6px; font-weight: 700; cursor: pointer;
+      font-size: 12px; text-align: center; transition: all 0.2s;
+    }
+    .btn-donate:hover { background: #fdd835; }
+
+    #status { padding: 50px 20px; text-align: center; color: #aaa; font-style: italic; }
+  </style>
+</head>
+<body>
+  
+  <div class="header">
+    <div class="header-left">
+      <h3>Telegram Downloader</h3>
+      <span class="badge">PRO</span>
+    </div>
+    <button id="clear-btn" class="btn-clear">🗑 Clear</button>
+  </div>
+
+  <div class="table-container">
+    <table id="video-table" style="display:none;">
+      <thead>
+        <tr>
+          <th class="col-idx">#</th>
+          <th class="col-name">File Name</th>
+          <th class="col-time">Time</th>
+          <th class="col-size">Size</th>
+          <th class="col-act"></th>
+        </tr>
+      </thead>
+      <tbody id="video-list"></tbody>
+    </table>
+    <div id="status">Scanning for videos...</div>
+  </div>
+
+  <div class="legal-footer">
+    <button id="donate-btn" class="btn-donate">☕ Support the Developer</button>
+    <div class="footer-info">
+      <span>Made in India 🇮🇳</span>
+      <span style="color:#d32f2f;">⚠️ Personal Use Only</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

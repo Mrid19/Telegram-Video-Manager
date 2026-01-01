@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Telegram Video Manager",
+  "version": "2.0",
+  "description": "Download restricted videos from Telegram Web",
+  "permissions": ["activeTab", "scripting"],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "host_permissions": ["*://web.telegram.org/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://web.telegram.org/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["logic.js"],
+      "matches": ["*://web.telegram.org/*"]
+    }
+  ]
+}
